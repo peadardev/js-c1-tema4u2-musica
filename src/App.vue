@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SongListContainer from './components/SongListContainer.vue';
+import SongListFooter from './components/SongListFooter.vue';
+import SongListHeader from './components/SongListHeader.vue';
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div>
+    <SongListHeader />
+    <SongListContainer />
+    <SongListFooter />
+  </div>
 </template>
 
 <style scoped></style>
