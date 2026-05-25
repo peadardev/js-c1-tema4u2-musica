@@ -19,32 +19,55 @@ const toggleView = () => (isShowAll.value = !isShowAll.value);
       <button @click="toggleView" class="button-toggle">
         {{ textButton }}
       </button>
-      <div class="number-movies">Mostrant {{ songs.length }} cançons (total: {{ numTotal }})</div>
+      <span class="number-songs">
+        <span class="number-showing">
+          <div class="showing-label">Mostrant:</div>
+          <div class="showing-value">{{ songs.length }}</div>
+        </span>
+        <div class="number-total">Total: {{ numTotal }}</div>
+      </span>
     </span>
-    <span class="movies-list">
-      <div class="movie-container" v-for="song of songs" :key="song.id">
+    <div class="songs-list">
+      <div class="songs-container" v-for="song of songs" :key="song.id">
         <SongItem v-if="isShowAll || song.isTopHit" :song="song" />
       </div>
-    </span>
+    </div>
   </main>
 </template>
 
 <style scoped>
 .container-control {
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.number-movies {
-  font-family: Arial, sans-serif;
-  font-weight: bold;
+.number-songs {
+  display: flex;
+  align-items: center;
   padding: 1rem;
 }
-img {
-  max-width: 100px;
-  width: 100%;
-  height: auto;
+.number-showing {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+.showing-label {
+  font-size: 14px;
+  padding: 5px;
+}
+.showing-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: darkblue;
+}
+.number-total {
+  font-size: 14px;
+  background-color: whitesmoke;
+  padding: 10px;
 }
 .button-toggle {
+  height: 2.5rem;
   padding: 10px 20px;
   margin: 1rem;
   background: lightsteelblue;
@@ -52,35 +75,12 @@ img {
   cursor: pointer;
   border: 1px solid gray;
 }
-.movies-list {
+.songs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+.songs-container {
   display: flex;
-}
-
-.movie-container {
-  display: flex;
-}
-.movie-item {
-  max-width: 260px;
-  min-width: 200px;
-  margin: 20px;
-  background: black;
-  border: 0px solid black;
-  padding: 5px;
-  margin: 5px;
-  text-align: left;
-  background-color: lightyellow;
-}
-.movie-end-line {
-  display: flex;
-  justify-content: space-between;
-  font-style: italic;
-}
-.label-in-theaters {
-  font-size: 12px;
-  font-style: normal;
-  color: yellow;
-  background: green;
-  padding: 8px;
-  border-radius: 4px;
 }
 </style>

@@ -1,73 +1,81 @@
 <script setup lang="ts">
 import type { Song } from '@/models/song.interface';
+import { computed } from 'vue';
 const props = defineProps<{ song: Song }>();
+const labelTitle = computed<string>(() => (props.song.isTopHit ? '🔥' : ''));
+const labelBottom = computed<string>(() => (props.song.isTopHit ? 'Top hit!' : '🎵'));
 </script>
 
 <template>
-  <main>
-    <div class="movie-item">
-      <h3>{{ props.song.title }} ({{ props.song.artist }})</h3>
+  <main class="song-item-ordinary" :class="{ 'song-item-hit': props.song.isTopHit }">
+    <span class="song-title">
+      <p class="song-name">{{ props.song.title }}</p>
+      <p>{{ labelTitle }}</p>
+    </span>
+    <span class="song-artist">
+      <em>Artista:</em>
       <p>{{ props.song.artist }}</p>
+    </span>
+    <span class="song-duration">
+      <em>Duració:</em>
       <p>{{ props.song.duration }}</p>
-      <span class="movie-end-line">
-        <p v-if="props.song.isTopHit" class="label-in-theaters">Top hit!</p>
-      </span>
-    </div>
+    </span>
+    <span class="song-label">
+      <p class="label-ordinary" :class="{ 'label-top-hit': props.song.isTopHit }">
+        {{ labelBottom }}
+      </p>
+    </span>
   </main>
 </template>
 
 <style scoped>
-.container-control {
+.song-item-ordinary {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-}
-.number-movies {
+  width: 250px;
+  height: 190px;
   font-family: Arial, sans-serif;
-  font-weight: bold;
-  padding: 1rem;
-}
-img {
-  max-width: 100px;
-  width: 100%;
-  height: auto;
-}
-.button-toggle {
-  padding: 10px 20px;
-  margin: 1rem;
-  background: lightsteelblue;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 1px solid gray;
-}
-.movies-list {
-  display: flex;
-}
-
-.movie-container {
-  display: flex;
-}
-.movie-item {
-  max-width: 260px;
-  min-width: 200px;
+  font-size: 14px;
   margin: 20px;
-  background: black;
-  border: 0px solid black;
-  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 10px;
   margin: 5px;
   text-align: left;
   background-color: lightyellow;
 }
-.movie-end-line {
+.song-item-hit {
+  border: 2px solid orangered;
+  background-color: lemonchiffon;
+}
+.song-title,
+.song-artist,
+.song-duration {
   display: flex;
   justify-content: space-between;
-  font-style: italic;
+  align-items: center;
 }
-.label-in-theaters {
+.song-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+.song-label {
+  display: flex;
+  justify-content: center;
+}
+.label-ordinary {
   font-size: 12px;
   font-style: normal;
-  color: yellow;
-  background: green;
+  color: black;
+  background: whitesmoke;
+  width: 60px;
+  text-align: center;
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 15px;
+}
+.label-top-hit {
+  color: yellow;
+  background: orangered;
 }
 </style>
